@@ -2,11 +2,18 @@ BASE_URL = 'https://qa-scooter.praktikum-services.ru/api/v1'
 COURIER_URL = '/courier'
 ORDERS_URL = '/orders'
 
-VALID_COURIER_DATA = {
-    "login": "the_flash",
-    "password": "2014",
-    "firstName": "TheFlash"
-}
+class CourierData:
+    VALID_COURIER_DATA = {
+        "login": "the_flash",
+        "password": "2014",
+        "firstName": "TheFlash"
+    }
+    
+    INVALID_COURIER_DATA = [
+        {"password": "2014", "firstName": "TheFlash"},
+        {"login": "the_flash", "firstName": "TheFlash"},
+        {"firstName": "TheFlash"}
+    ]
 
 VALID_ORDER_DATA = {
     "firstName": "Barry",

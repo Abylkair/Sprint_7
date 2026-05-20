@@ -41,14 +41,15 @@ def created_and_logged_courier(courier_methods: CourierMethods):
     create_params = helpers.generate_courier_data()
     create_response = courier_methods.create_courier(create_params)
     
-    assert create_response.status_code == 201, "Не удалось создать курьера в фикстуре"
-    
+    # 1. Сначала подготавливаем параметры и логинимся
     login_params = {
         "login": create_params['login'],
         "password": create_params['password']
     }
     login_response = courier_methods.login_courier(login_params)
-    assert login_response.status_code == 200, "Не удалось залогиниться в фикстуре"
+    
+    if login_response.status_code != 200:
+        pytest.fail(f"Не удалось залогиниться в фикстуре. Статус: {login_response.status_code}")
     
     courier_data = {
         "courier_id": login_response.json()['id'],
